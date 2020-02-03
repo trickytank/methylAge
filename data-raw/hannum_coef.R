@@ -17,8 +17,16 @@
 library(devtools)
 library(tidyverse)
 library(readxl)
+library(tools)
 
-hannum_coef_raw <- readxl::read_excel("data-raw/supplementary/1-s2.0-S1097276512008933-mmc2.xlsx", sheet = "Model_PrimaryData")
+local_hannum <- "data-raw/supplementary/1-s2.0-S1097276512008933-mmc2.xlsx"
+
+if(md5sum(local_hannum) != "5b9aeb1ba2ec9915b9f815d9bbc30f9e") {
+  stop("Hannum coefficients file does not appear to be correct according to the md5sum.")
+}
+
+hannum_coef_raw <- readxl::read_excel(local_hannum, sheet = "Model_PrimaryData")
 # Make a syntactically valid name
 hannum_coef <- hannum_coef_raw %>% rename(CpG_Island = "CpG Island")
+
 use_data(hannum_coef)
