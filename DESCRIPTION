@@ -1,0 +1,13 @@
+Package: methylAge
+Title: DNA Methylation Age predictors
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Rick",
+           family = "Tankard",
+           role = c("aut", "cre"),
+           email = "rick.tankard@murdoch.edu.au",
+           comment = c(ORCID = "0000-0002-8847-9401"))
+Description: Generate DNA methylation age predictors from methylation array data.
+License: None
+Encoding: UTF-8
+LazyData: true
