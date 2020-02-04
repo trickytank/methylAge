@@ -10,10 +10,8 @@ hannum <- function(x, id_col = "ID", age_col = "hannum_mAge", dim_warning = TRUE
   # Load coefficients
   coefs_clock <- setNames(hannum_coef$Coefficient, hannum_coef$Marker)
   # Calculate Hannum Methylation Age
-  x_mat <- as.matrix( x[, names(coefs_clock)] )
-  m_age <- x_mat %*% coefs_clock
+  x_mat <- as.matrix( x[names(coefs_clock), ] )
+  m_age <- coefs_clock %*% x_mat
   # Cleanup
-  colnames(m_age) <- age_col
-  m_age_tbl <- as_tibble(m_age, rownames = id_col)
-  m_age_tbl
+  tibble(!!id_col := colnames(m_age), !!age_col := m_age[1,])
 }
