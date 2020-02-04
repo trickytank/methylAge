@@ -2,3 +2,5 @@
 
 export(hannum)
 import(checkmate)
+import(dplyr)
+import(tibble)
