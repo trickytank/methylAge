@@ -6,7 +6,7 @@ check_methylation_data <- function(x, dim_warning = TRUE) {
   assert_false(is_tibble(x))
   assert_false(is.null(rownames(x)))
   assert_false(is.null(colnames(x)))
-  if(dim_warning && nrow(x) > ncol(x)) {
-    warning("Number of samples (rows) is more than the number of probes (rows)", immediate. = TRUE)
+  if(dim_warning && nrow(x) < ncol(x)) {
+    warning("Number of samples (columns) is more than the number of probes (rows)", immediate. = TRUE)
   }
 }
