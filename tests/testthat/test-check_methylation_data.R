@@ -1,12 +1,12 @@
 # Smaller dataset to test with :p
-metm <- met[1:3, 1:4]
+metm <- met[1:4, 1:3]
 
 test_that("No warnings or errors on clean data", {
   expect_silent(check_methylation_data(metm))
 })
 
 test_that("Warning when more rows than columns", {
-  expect_warning(check_methylation_data(metm[1:3, 1:2]))
+  expect_warning(check_methylation_data(metm[1:2, 1:3]))
 })
 
 test_that("Error with wrong data type", {
