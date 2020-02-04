@@ -1,3 +1,4 @@
+#' Hannum DNA methylation age calculation
 #' @export
 #' @import checkmate
 #' @import dplyr
