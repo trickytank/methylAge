@@ -13,5 +13,5 @@ hannum <- function(x, id_col = "ID", age_col = "hannum_mAge", dim_warning = TRUE
   x_mat <- as.matrix( x[names(coefs_clock), ] )
   m_age <- coefs_clock %*% x_mat
   # Cleanup
-  tibble(!!id_col := colnames(m_age), !!age_col := m_age[1,])
+  tibble::tibble(!!id_col := colnames(m_age), !!age_col := m_age[1,])
 }
