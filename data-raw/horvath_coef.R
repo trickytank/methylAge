@@ -16,8 +16,11 @@
 library(devtools)
 library(tidyverse)
 library(tools)
+library(fs)
 
-local_horvath <- 'data-raw/supplementary/AdditionalFile3.csv'
+local_horvath <- 'data-raw/supplementary/horvath/AdditionalFile3.csv'
+
+dir_create(path_dir(local_horvath))
 
 if(!file.exists(local_horvath)) {
   download.file('https://horvath.genetics.ucla.edu/html/dnamage/AdditionalFile3.csv', local_horvath)
@@ -30,3 +33,28 @@ horvath_coef_raw <- read.csv(local_horvath)
 horvath_coef <- horvath_coef_raw[, 1:2]
 
 use_data(horvath_coef)
+
+
+# And Horvath annotations
+local_probe_21kdat <- 'data-raw/supplementary/horvath/probeAnnotation21kdatMethUsed.csv'
+local_probe_27k <- 'data-raw/supplementary/horvath/datMiniAnnotation27k.csv'
+
+if(!file.exists(local_probe_21kdat)) {
+  download.file('https://horvath.genetics.ucla.edu/html/dnamage/probeAnnotation21kdatMethUsed.csv', local_probe_21kdat)
+}
+if(md5sum(local_probe_21kdat) != "f8eb4f868e328f4c4f492bbf83ea0c4d") {
+  stop("Horvath annotation 21k datMethUsed file does not appear to be correct according to the md5sum.")
+}
+
+if(!file.exists(local_probe_27k)) {
+  download.file('https://horvath.genetics.ucla.edu/html/dnamage/datMiniAnnotation27k.csv', local_probe_27k)
+}
+if(md5sum(local_probe_27k) != "bad8eed11b7d3ad520a4b141cc393f29") {
+  stop("Horvath mini annotation 27k file does not appear to be correct according to the md5sum.")
+}
+
+horvath_probeAnnotation21kdatMethUsed <- read.csv(local_probe_21kdat)
+horvath_probeAnnotation27k <- read.csv(local_probe_27k)
+
+use_data(horvath_probeAnnotation21kdatMethUsed)
+use_data(horvath_probeAnnotation27k)
