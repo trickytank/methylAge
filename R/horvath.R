@@ -11,9 +11,13 @@ horvath <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALS
   # Calculate Horvath Methylation Age
   check_methylation_data(x, dim_warning = dim_warning)
 
-  probeAnnotation21kdatMethUsed=read.csv("probeAnnotation21kdatMethUsed.csv")
-  probeAnnotation27k=read.csv("datMiniAnnotation27k.csv")
-  datClock=read.csv("AdditionalFile3.csv")
+  # Format data as required by Horvath's code
+  dat0 <- as.data.frame(as_tibble(x, rownames = "ProbeID"))
+
+  # Load datasets using Horvath's names
+  probeAnnotation21kdatMethUsed <- horvath_probeAnnotation21kdatMethUsed
+  probeAnnotation27k <- horvath_probeAnnotation27k
+  datClock <- horvath_coef
 
   # Read in the DNA methylation data (beta values)
   # For a small file, e.g. measured on the 27k platform you could just use read.csv.
@@ -26,38 +30,30 @@ horvath <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALS
   nProbes= dim(dat0)[[1]]
   # the following command may not be needed. But it is sometimes useful when you use read.csv.sql
   dat0[,1]= gsub(x=dat0 [,1],pattern="\"",replacement="")
-  #Create a log file which will be output into your directory
-  # The code looks a bit complicated because it serves to create a log file (for error checks etc).
-  # It will automatically create a log file.
-  if(! exists("logfile")) {
-    stop("no logfile specified")
-  }
-  file.remove(logfile)
-  file.create(logfile)
+
   DoNotProceed=FALSE
-  cat(paste( "The methylation data set contains", nSamples, "samples (e.g. arrays) and ", nProbes, " probes."),file=logfile)
-  if (nSamples==0) {DoNotProceed=TRUE; cat(paste( "\n ERROR: There must be a data input error since there seem to be no samples.\n Make sure that you input a comma delimited file (.csv file)\n that can be read using the R command read.csv.sql . Samples correspond to columns in that file  ."), file=logfile,append=TRUE) }
-  if (nProbes==0) {DoNotProceed=TRUE; cat(paste( "\n ERROR: There must be a data input error since there seem to be zero probes.\n Make sure that you input a comma delimited file (.csv file)\n that can be read using the R command read.csv.sql  CpGs correspond to rows.")   , file=logfile,append=TRUE) }
-  if (  nSamples > nProbes  ) { cat(paste( "\n MAJOR WARNING: It worries me a lot that there are more samples than CpG probes.\n Make sure that probes correspond to rows and samples to columns.\n I wonder whether you want to first transpose the data and then resubmit them? In any event, I will proceed with the analysis."),file=logfile,append=TRUE) }
-  if (  is.numeric(dat0[,1]) ) { DoNotProceed=TRUE; cat(paste( "\n Error: The first column does not seem to contain probe identifiers (cg numbers from Illumina) since these entries are numeric values. Make sure that the first column of the file contains probe identifiers such as cg00000292. Instead it contains ", dat0[1:3,1]  ),file=logfile,append=TRUE)  }
-  if (  !is.character(dat0[,1]) ) {  cat(paste( "\n Major Warning: The first column does not seem to contain probe identifiers (cg numbers from Illumina) since these entries are numeric values. Make sure that the first column of the file contains CpG probe identifiers such as cg00000292. Instead it contains ", dat0[1:3,1]  ),file=logfile,append=TRUE)  }
-  datout=data.frame(Error=c("Input error. Please check the log file for details","Please read the instructions carefully."), Comment=c("", "email Steve Horvath."))
+  message(paste( "The methylation data set contains", nSamples, "samples (e.g. arrays) and ", nProbes, " probes."))
+  if (nSamples==0) {DoNotProceed=TRUE; warning(paste( "\n ERROR: There must be a data input error since there seem to be no samples.\n Make sure that you input a comma delimited file (.csv file)\n that can be read using the R command read.csv.sql . Samples correspond to columns in that file  .")) }
+  if (nProbes==0) {DoNotProceed=TRUE; warning(paste( "\n ERROR: There must be a data input error since there seem to be zero probes.\n Make sure that you input a comma delimited file (.csv file)\n that can be read using the R command read.csv.sql  CpGs correspond to rows.")) }
+  if (  nSamples > nProbes  ) { warning(paste( "\n MAJOR WARNING: It worries me a lot that there are more samples than CpG probes.\n Make sure that probes correspond to rows and samples to columns.\n I wonder whether you want to first transpose the data and then resubmit them? In any event, I will proceed with the analysis."), immediate. = TRUE) }
+  if (  is.numeric(dat0[,1]) ) { DoNotProceed=TRUE; warning(paste( "\n Error: The first column does not seem to contain probe identifiers (cg numbers from Illumina) since these entries are numeric values. Make sure that the first column of the file contains probe identifiers such as cg00000292. Instead it contains ", dat0[1:3,1]  ))  }
+  if (  !is.character(dat0[,1]) ) {  warning(paste( "\n Major Warning: The first column does not seem to contain probe identifiers (cg numbers from Illumina) since these entries are numeric values. Make sure that the first column of the file contains CpG probe identifiers such as cg00000292. Instead it contains ", dat0[1:3,1]  ), immediate. = TRUE)  }
   if ( ! DoNotProceed ) {
     nonNumericColumn=rep(FALSE, dim(dat0)[[2]]-1)
     for (i in 2:dim(dat0)[[2]] ){ nonNumericColumn[i-1]=! is.numeric(dat0[,i]) }
-    if (  sum(nonNumericColumn) >0 ) { cat(paste( "\n MAJOR WARNING: Possible input error. The following samples contain non-numeric beta values: ", colnames(dat0)[-1][ nonNumericColumn], "\n Hint: Maybe you use the wrong symbols for missing data. Make sure to code missing values as NA in the Excel file. To proceed, I will force the entries into numeric values but make sure this makes sense.\n" ),file=logfile,append=TRUE)  }
+    if (  sum(nonNumericColumn) >0 ) { warning(paste( "\n MAJOR WARNING: Possible input error. The following samples contain non-numeric beta values: ", colnames(dat0)[-1][ nonNumericColumn], "\n Hint: Maybe you use the wrong symbols for missing data. Make sure to code missing values as NA in the Excel file. To proceed, I will force the entries into numeric values but make sure this makes sense.\n" ), immediate. = TRUE)  }
     XchromosomalCpGs=as.character(probeAnnotation27k$Name[probeAnnotation27k$Chr=="X"])
     selectXchromosome=is.element(dat0[,1], XchromosomalCpGs )
     selectXchromosome[is.na(selectXchromosome)]=FALSE
     meanXchromosome=rep(NA, dim(dat0)[[2]]-1)
     if (   sum(selectXchromosome) >=500 )  {
       meanXchromosome= as.numeric(apply( as.matrix(dat0[selectXchromosome,-1]),2,mean,na.rm=TRUE)) }
-    if (  sum(is.na(meanXchromosome)) >0 ) { cat(paste( "\n \n Comment: There are lots of missing values for X chromosomal probes for some of the samples. This is not a problem when it comes to estimating age but I cannot predict the gender of these samples.\n " ),file=logfile,append=TRUE)  }
+    if (  sum(is.na(meanXchromosome)) >0 ) { warning(paste( "\n \n Comment: There are lots of missing values for X chromosomal probes for some of the samples. This is not a problem when it comes to estimating age but I cannot predict the gender of these samples.\n " ))  }
 
     match1=match(probeAnnotation21kdatMethUsed$Name , dat0[,1])
     if  ( sum( is.na(match1))>0 ) {
       missingProbes= probeAnnotation21kdatMethUsed$Name[!is.element( probeAnnotation21kdatMethUsed$Name , dat0[,1])]
-      DoNotProceed=TRUE; cat(paste( "\n \n Input error: You forgot to include the following ", length(missingProbes), " CpG probes (or probe names):\n ", paste( missingProbes, sep="",collapse=", ")),file=logfile,append=TRUE)  }
+      DoNotProceed=TRUE; stop(paste( "\n \n Input error: You forgot to include the following ", length(missingProbes), " CpG probes (or probe names):\n ", paste( missingProbes, sep="",collapse=", ")))  }
 
     #STEP 2: Restrict the data to 21k probes and ensure they are numeric
     match1=match(probeAnnotation21kdatMethUsed$Name , dat0[,1])
@@ -69,9 +65,7 @@ horvath <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALS
     #STEP 3: Create the output file called datout
     set.seed(1)
     # Do you want to normalize the data (recommended)?
-    #normalizeData=TRUE
-    # Must set normalizeData outside
-    source("StepwiseAnalysis.R", local = TRUE)
+    normalizeData <- normalize # RICK: using Horvath name
     # Steve Horvath: Estimating DNAm age.
     # This file assumes a data frame exists called dat1 whose rows correspond to CpGs
     # and whose first column reports the CpG identifier
@@ -80,7 +74,7 @@ horvath <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALS
 
     fastImputation=FALSE
 
-    #STEP 1: DEFINE QUALITY METRICS
+    #STEP 3.1: DEFINE QUALITY METRICS
 
     meanMethBySample =as.numeric(apply(as.matrix(dat1[,-1]),2,mean,na.rm=TRUE))
     minMethBySample   =as.numeric(apply(as.matrix(dat1[,-1]),2,min,na.rm=TRUE))
@@ -93,7 +87,7 @@ horvath <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALS
     noMissingPerSample=apply(as.matrix(is.na(datMethUsed)),1,sum)
     table(noMissingPerSample)
 
-    #STEP 2: Imputing
+    #STEP 3.2: Imputing
     if (! fastImputation & nSamples>1 & max(noMissingPerSample,na.rm=TRUE)<3000 ){
 
       # run the following code if there is at least one missing
@@ -128,19 +122,19 @@ horvath <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALS
 
 
 
-    # STEP 3: Data normalization (each sample requires about 8 seconds). It would be straightforward to parallelize this operation.
+    # STEP 3.3: Data normalization (each sample requires about 8 seconds). It would be straightforward to parallelize this operation.
 
     if (normalizeData ){
       datMethUsedNormalized=BMIQcalibration(datM=datMethUsed,goldstandard.beta= probeAnnotation21kdatMethUsed$goldstandard2,plots=FALSE)
     }
     if (!normalizeData ){ datMethUsedNormalized=datMethUsed }
-    rm(datMethUsed); gc()
+    rm(datMethUsed); #gc()
 
 
 
 
 
-    #STEP 4: Predict age and create a data frame for the output (referred to as datout)
+    #STEP 3.4: Predict age and create a data frame for the output (referred to as datout)
     selectCpGsClock=is.element(dimnames(datMethUsedNormalized)[[2]], as.character(datClock$CpGmarker[-1]))
     if ( sum( selectCpGsClock) < dim(datClock)[[1]]-1 ) {stop("The CpGs listed in column 1 of the input data did not contain the CpGs needed for calculating DNAm age. Make sure to input cg numbers such as cg00075967.")}
     if ( sum( selectCpGsClock) > dim(datClock)[[1]]-1 ) {stop("ERROR: The CpGs listed in column 1 of the input data contain duplicate CpGs. Each row should report only one unique CpG marker (cg number).")}
@@ -210,18 +204,16 @@ horvath <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALS
 
 
     # STEP 4: Output the results
-    if (  sum(  datout$Comment  != "" )   ==0 ) { cat(paste( "\n The individual samples appear to be fine. "),file=logfile,append=TRUE)  }
-    if (  sum(  datout$Comment != "" )   >0 ) { cat(paste( "\n Warnings were generated for the following samples.\n", datout[,1][datout$Comment != ""], "\n Hint: Check the output file for more details."),file=logfile,append=TRUE)  }
+    if (  sum(  datout$Comment  != "" )   ==0 ) { message(paste( "\n The individual samples appear to be fine. "))  }
+    if (  sum(  datout$Comment != "" )   >0 ) { warning(paste( "\n Warnings were generated for the following samples.\n", datout[,1][datout$Comment != ""], "\n Hint: Check the output table for more details."))  }
+  } else {
+    stop("There has been an error (see above warnings).")
   }
-  # output the results into the directory
-  write.table(datout,"Output.csv", row.names=F, sep="," )
-
 
   datout
 
-
   # Cleanup
-  tibble(!!id_col := colnames(m_age), !!age_col := m_age[1,])
+  # tibble(!!id_col := colnames(m_age), !!age_col := m_age[1,])
 }
 
 trafo <- function(x,adult.age=20) { x=(x+1)/(1+adult.age); y=ifelse(x<=1, log( x),x-1);y }
