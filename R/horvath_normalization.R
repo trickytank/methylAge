@@ -157,7 +157,7 @@ BMIQcalibration=function(datM,goldstandard.beta,nL=3,doH=TRUE,nfit=20000,th1.v=c
 
   ### BETA 2
   for (ii in 1:dim(datM)[[1]] ){
-    printFlush(paste("ii=",ii))
+    dynamicTreeCut::printFlush(paste("ii=",ii))
     sampleID=ii
     beta2.v = as.numeric(datM[ii,])
 
