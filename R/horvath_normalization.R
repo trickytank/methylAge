@@ -1,8 +1,4 @@
-
-
-
-
-
+# internval functions from Horvath's method for normalization of raw data
 ### ORIGINAL AUTHOR: Andrew Teschendorff
 # The original BMIQ function from Teschendorff 2013 adjusts for the type-2 bias in
 # Illumina Infinium 450k data.
@@ -18,12 +14,6 @@
 # Importantly, SH changed the optimization algorithm to make it #more robust.
 # SH used method="Nelder-Mead" in optim() since the other #optimization method sometimes gets stuck.
 #Toward this end, the function blc was replaced by blc2.
-
-
-
-require(RPMM);
-
-
 
 betaEst2=function (y, w, weights)
 {
@@ -46,7 +36,6 @@ betaEst2=function (y, w, weights)
     return(c(1, 1))
   exp(opt$par)
 } # end of function betaEst
-
 
 
 blc2=function (Y, w, maxiter = 25, tol = 1e-06, weights = NULL, verbose = TRUE)
@@ -103,15 +92,6 @@ blc2=function (Y, w, maxiter = 25, tol = 1e-06, weights = NULL, verbose = TRUE)
 }
 
 
-
-
-
-
-
-
-
-
-
 # The function BMIQcalibration was created by Steve Horvath by heavily recycling code
 # from A. Teschendorff's BMIQ function.
 # BMIQ stands for beta mixture quantile normalization.
@@ -124,7 +104,6 @@ blc2=function (Y, w, maxiter = 25, tol = 1e-06, weights = NULL, verbose = TRUE)
 # dimnames(datMeth)=dimnames1
 # gold.mean=as.numeric(apply(datMeth,2,mean,na.rm=TRUE))
 #datMethCalibrated=BMIQcalibration(datM=datMeth,goldstandard.beta=gold.mean)
-
 BMIQcalibration=function(datM,goldstandard.beta,nL=3,doH=TRUE,nfit=20000,th1.v=c(0.2,0.75),th2.v=NULL,niter=5,tol=0.001,plots=FALSE,calibrateUnitInterval=TRUE){
   if (length(goldstandard.beta) !=dim(datM)[[2]] ) {stop("Error in function arguments length(goldstandard.beta) !=dim(datM)[[2]]. Consider transposing datM.")}
   if (plots ) {par(mfrow=c(2,2))}
@@ -315,9 +294,6 @@ BMIQcalibration=function(datM,goldstandard.beta,nL=3,doH=TRUE,nfit=20000,th1.v=c
   } # end of for (ii=1 loop
   datM
 } # end of function BMIQcalibration
-
-
-
 
 
 BMIQ = function(beta.v,design.v,nL=3,doH=TRUE,nfit=50000,th1.v=c(0.2,0.75),th2.v=NULL,niter=5,tol=0.001,plots=TRUE,sampleID=1,calibrateUnitInterval=TRUE){
@@ -539,7 +515,6 @@ BMIQ = function(beta.v,design.v,nL=3,doH=TRUE,nfit=50000,th1.v=c(0.2,0.75),th2.v
 }
 
 
-
 CheckBMIQ = function(beta.v,design.v,pnbeta.v){### pnbeta is BMIQ normalised profile
 
   type1.idx = which(design.v==1);
@@ -550,20 +525,6 @@ CheckBMIQ = function(beta.v,design.v,pnbeta.v){### pnbeta is BMIQ normalised pro
   pnbeta2.v = pnbeta.v[type2.idx];
 
 } # end of function CheckBMIQ
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 CalibrateUnitInterval=function(datM,onlyIfOutside=TRUE){
@@ -586,7 +547,3 @@ CalibrateUnitInterval=function(datM,onlyIfOutside=TRUE){
   }
   datM
 } #end of function for calibrating to [0,1]
-
-
-
-
