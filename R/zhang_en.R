@@ -75,12 +75,12 @@ zhang_clocks <- function(x, id_col = "ID",
 
   list(en = enpred, blup = blupred)
   if("en" %in% clocks) {
-    age_pred <- tibble(!!id_col := colnames(enpred), !!en_col := enpred[1,])
+    age_pred <- tibble::tibble(!!id_col := colnames(enpred), !!en_col := enpred[1,])
   } else {
-    age_pred <- tibble(!!id_col := colnames(blupred))
+    age_pred <- tibble::tibble(!!id_col := colnames(blupred))
   }
   if("blup" %in% clocks) {
-    age_pred <- add_column(age_pred, !!blup_col := blupred[1,])
+    age_pred <- tibble::add_column(age_pred, !!blup_col := blupred[1,])
   }
   age_pred
 }
