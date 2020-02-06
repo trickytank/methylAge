@@ -11,7 +11,11 @@ Description: Generate DNA methylation age predictors from methylation array data
 Imports:
   checkmate,
   dplyr,
-  tibble
+  tibble,
+  WGCNA,
+  sqldf,
+  impute,
+  RPMM
 License: None
 Encoding: UTF-8
 LazyData: true
