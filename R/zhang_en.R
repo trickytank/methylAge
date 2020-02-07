@@ -13,14 +13,13 @@ zhang_clocks <- function(x, id_col = "ID",
 
   message("1.1 Replacing missing values with mean value")
   if(anyNA(data)) {
-    dataNona<-apply(data,2,function(x) addna(x))   ###############  replace the NA with mean value for each probe
-  } else {
-    dataNona <- data
+    data<-apply(data,2,function(x) addna(x))   ###############  replace the NA with mean value for each probe
   }
 
   message("1.2 Standardizing")
-  dataNona.norm<- apply(dataNona,1,scale)        ############### standardize the DNA methylation within each individual, remove the mean and divided by the SD of each individual     Probe * IND
-  rownames(dataNona.norm)<-colnames(dataNona)
+  dataNona.norm<- apply(data,1,scale)        ############### standardize the DNA methylation within each individual, remove the mean and divided by the SD of each individual     Probe * IND
+  rownames(dataNona.norm)<-colnames(data)
+  rm(data)
 
 
   ############# 3. get the coefficients of each probe from Elastic Net/BLUP method, !!!!WE HAVE TWO PREDICTORS!!!#############
