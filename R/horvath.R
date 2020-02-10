@@ -210,10 +210,9 @@ horvath <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALS
     stop("There has been an error (see above warnings).")
   }
 
-  datout
-
   # Cleanup
-  # tibble(!!id_col := colnames(m_age), !!age_col := m_age[1,])
+  names(datout)[1:2] <- c(id_col, age_col)
+  datout
 }
 
 trafo <- function(x,adult.age=20) { x=(x+1)/(1+adult.age); y=ifelse(x<=1, log( x),x-1);y }
