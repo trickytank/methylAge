@@ -7,7 +7,7 @@
 #' @import sqldf
 #' @import impute
 #' @import RPMM
-horvath <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALSE, dim_warning = TRUE) {
+horvath_clock <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALSE, dim_warning = TRUE) {
   # Calculate Horvath Methylation Age
   check_methylation_data(x, dim_warning = dim_warning)
 
