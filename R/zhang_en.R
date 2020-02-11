@@ -3,7 +3,7 @@
 #' @import checkmate
 #' @import dplyr
 #' @import tibble
-zhang_clocks <- function(x, id_col = "ID",
+zhang_clock <- function(x, id_col = "ID",
                          en_col = "zhang_en_mAge", blup_col = "zhang_blup_mAge",
                          clocks = c("en", "blup"), dim_warning = TRUE) {
   # Calculate Zhang Elastic Net Methylation Age
