@@ -3,7 +3,7 @@
 #' @import checkmate
 #' @import dplyr
 #' @import tibble
-hannum <- function(x, id_col = "ID", age_col = "hannum_mAge", dim_warning = TRUE) {
+hannum_clock <- function(x, id_col = "ID", age_col = "hannum_mAge", dim_warning = TRUE) {
   # Calculate Hannum Methylation Age
   check_methylation_data(x, dim_warning = dim_warning)
 
