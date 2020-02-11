@@ -1,8 +1,8 @@
 test_that("No errors or warnings", {
-  expect_silent(hannum_age <- hannum(met))
+  expect_silent(hannum_age <- hannum_clock(met))
 })
 
-hannum_age <- hannum(met)
+hannum_age <- hannum_clock(met)
 
 hannum_expected <- structure(list(
   ID = c("GSM1871369", "GSM1871370", "GSM1871371",
