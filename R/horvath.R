@@ -12,7 +12,7 @@ horvath_clock <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize 
   check_methylation_data(x, dim_warning = dim_warning)
 
   # Format data as required by Horvath's code
-  dat0 <- as.data.frame(as_tibble(x, rownames = "ProbeID"))
+  dat0 <- tibble::rownames_to_column(as.data.frame(x), var = "ProbeID")
 
   # Load datasets using Horvath's names
   probeAnnotation21kdatMethUsed <- horvath_probeAnnotation21kdatMethUsed
