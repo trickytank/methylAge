@@ -9,6 +9,9 @@ Authors@R:
            comment = c(ORCID = "0000-0002-8847-9401"))
 Description: Generate DNA methylation age predictors from methylation array data.
 Imports:
+  stats,
+  graphics,
+  grDevices,
   checkmate,
   dplyr,
   tibble,
@@ -16,7 +19,7 @@ Imports:
   sqldf,
   impute,
   RPMM,
-  dynamicTreeCut
+  dynamicTreeCut,
 License: None
 Encoding: UTF-8
 LazyData: true
