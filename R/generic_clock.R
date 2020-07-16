@@ -8,16 +8,27 @@
 #' @import checkmate
 #' @import dplyr
 #' @import tibble
+#' @importFrom stats setNames
 generic_clock <- function(x, coef,
                           marker_col, coef_col,
                           id_col = "ID", age_col = "mage",
                          allow_missing = FALSE, dim_warning = TRUE,
-                         clock_name = "generic") {
+                         clock_name = "generic",
+                         intercept_name = NULL) {
   # Calculate generic linear model DNA methylation age
   check_methylation_data(x, dim_warning = dim_warning)
 
   # Load coefficients
   coefs_clock <- setNames(coef[[coef_col]], coef[[marker_col]])
+
+  # Extract intercept if present
+  if(!is.null(intercept_name)) {
+    intercept <- coefs_clock[intercept_name]
+    coefs_clock <- coefs_clock[names(coefs_clock) != intercept_name]
+    assert_number(intercept, finite = TRUE)
+  } else {
+    intercept <-  0
+  }
 
   # Check for missing coefficients
   probes_check <- names(coefs_clock) %in% row.names(x)
@@ -36,7 +47,7 @@ generic_clock <- function(x, coef,
 
   # Calculate Methylation Age
   x_mat <- as.matrix( x[probes_present, ] )
-  m_age <- coefs_clock %*% x_mat
+  m_age <- coefs_clock %*% x_mat + intercept
   # Cleanup
   tibble::tibble(!!id_col := colnames(m_age), !!age_col := m_age[1,])
 }
