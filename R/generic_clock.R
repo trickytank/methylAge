@@ -26,7 +26,7 @@ generic_clock <- function(x, coef,
   if(!is.null(intercept_name)) {
     intercept <- coefs_clock[intercept_name]
     coefs_clock <- coefs_clock[names(coefs_clock) != intercept_name]
-    if(length(intercept) == 0L) {
+    if(is.na(intercept)) {
       stop("Value for intercept with name '", intercept_name, "' not found in coef.")
     }
     assert_number(intercept, finite = TRUE)
