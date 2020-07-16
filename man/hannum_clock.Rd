@@ -4,7 +4,13 @@
 \alias{hannum_clock}
 \title{Hannum DNA methylation age calculation}
 \usage{
-hannum_clock(x, id_col = "ID", age_col = "hannum_mAge", dim_warning = TRUE)
+hannum_clock(
+  x,
+  id_col = "ID",
+  age_col = "hannum_mage",
+  allow_missing = FALSE,
+  dim_warning = TRUE
+)
 }
 \description{
 Hannum DNA methylation age calculation
