@@ -10,5 +10,5 @@ hannum_clock <- function(x, id_col = "ID", age_col = "hannum_mage", allow_missin
                 marker_col = "Marker", coef_col = "Coefficient",
                 id_col = id_col, age_col = age_col,
                 allow_missing = allow_missing, dim_warning = dim_warning,
-                clock_name = "hannum")
+                clock_name = "Hannum")
 }
