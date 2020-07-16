@@ -11,10 +11,11 @@
 #' @importFrom stats setNames
 generic_clock <- function(x, coef,
                           marker_col, coef_col,
+                          intercept_name = "Intercept",
                           id_col = "ID", age_col = "mage",
                          allow_missing = FALSE, dim_warning = TRUE,
-                         clock_name = "generic",
-                         intercept_name = NULL) {
+                         clock_name = "generic"
+                         ) {
   # Calculate generic linear model DNA methylation age
   check_methylation_data(x, dim_warning = dim_warning)
 
@@ -25,6 +26,9 @@ generic_clock <- function(x, coef,
   if(!is.null(intercept_name)) {
     intercept <- coefs_clock[intercept_name]
     coefs_clock <- coefs_clock[names(coefs_clock) != intercept_name]
+    if(length(intercept) == 0L) {
+      stop("Value for intercept with name '", intercept_name, "' not found in coef.")
+    }
     assert_number(intercept, finite = TRUE)
   } else {
     intercept <-  0
@@ -40,7 +44,8 @@ generic_clock <- function(x, coef,
     coefs_clock <- coefs_clock[probes_present]
   } else {
     if(!all(probes_check)) {
-      stop("Some ", clock_name, " probes are missing from the data.")
+
+      stop(sum(!probes_check), " ", clock_name, " probes are missing from the data.")
     }
     probes_present <- names(coefs_clock)
   }
