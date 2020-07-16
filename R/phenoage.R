@@ -10,6 +10,6 @@ phenoage_clock <- function(x, id_col = "ID", age_col = "phenoage", allow_missing
                 marker_col = "CpG", coef_col = "Weight",
                 id_col = id_col, age_col = age_col,
                 allow_missing = allow_missing, dim_warning = dim_warning,
-                clock_name = "Phenoage",
-                intercept_name = "Intercept")
+                clock_name = "Phenoage"
+  )
 }
