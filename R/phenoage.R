@@ -1,4 +1,7 @@
 #' Phenoage DNA methylation age calculation
+#'
+#' @inheritParams generic_clock
+#'
 #' @export
 #' @import checkmate
 #' @import dplyr

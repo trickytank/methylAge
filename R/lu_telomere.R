@@ -1,4 +1,7 @@
 #' Lu DNA methylation telomere length (DNAmTL) calculation
+#'
+#' @inheritParams generic_clock
+#'
 #' @export
 #' @import checkmate
 #' @import dplyr
