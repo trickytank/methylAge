@@ -1,4 +1,4 @@
-# ---- Prepare PhenoAge Coefficients ----
+# ---- Prepare Lu's DNAmTL Coefficients ----
 # Supplementary files will need to be obtained from the publication listed below, and
 # placed in the data-raw/supplementary/ directory
 
