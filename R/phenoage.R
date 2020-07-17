@@ -1,9 +1,9 @@
-#' Hannum DNA methylation age calculation
+#' Phenoage DNA methylation age calculation
 #' @export
 #' @import checkmate
 #' @import dplyr
 #' @import tibble
-phenoage_clock <- function(x, id_col = "ID", age_col = "phenoage", allow_missing = FALSE, dim_warning = TRUE) {
+phenoage <- function(x, id_col = "ID", age_col = "phenoage", allow_missing = FALSE, dim_warning = TRUE) {
   # Calculate Hannum Methylation Age
   generic_clock(
                 x, coef = phenoage_coef,
