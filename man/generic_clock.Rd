@@ -7,8 +7,9 @@
 generic_clock(
   x,
   coef,
-  marker_col,
-  coef_col,
+  marker_col = "marker",
+  coef_col = "coefficient",
+  intercept_name = "Intercept",
   id_col = "ID",
   age_col = "mage",
   allow_missing = FALSE,
