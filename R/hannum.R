@@ -6,7 +6,9 @@
 #' @import checkmate
 #' @import dplyr
 #' @import tibble
-hannum_clock <- function(x, id_col = "ID", age_col = "hannum_mage", allow_missing = FALSE, dim_warning = TRUE) {
+hannum_clock <- function(x, id_col = "ID", age_col = "hannum_mage",
+                         allow_missing = getOption('methylAge.allow_missing'),
+                         dim_warning = getOption('methylAge.dim_warning')) {
   # Calculate Hannum Methylation Age
   generic_clock(
                 x, coef = hannum_coef,
