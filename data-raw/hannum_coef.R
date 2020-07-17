@@ -27,6 +27,10 @@ if(md5sum(local_hannum) != "5b9aeb1ba2ec9915b9f815d9bbc30f9e") {
 
 hannum_coef_raw <- readxl::read_excel(local_hannum, sheet = "Model_PrimaryData")
 # Make a syntactically valid name
-hannum_coef <- hannum_coef_raw %>% rename(CpG_Island = "CpG Island")
+hannum_coef <- hannum_coef_raw %>%
+  rename_all(tolower) %>%
+  rename(
+    CpG_island = "cpg island",
+  )
 
 use_data(hannum_coef)
