@@ -2,7 +2,7 @@
 #'
 #' This function gives a methylation age based on the coefficients of a trained clock that
 #' does not transform the data. Transforms may be performed outside of this function.
-#' Several clocks in this package use this function for the clock calculation.
+#' Several clocks in this package use this function for methylation age calculation.
 #'
 #' @param x Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.
 #' @param coef data.frame of coefficients, with a column for marker and column for model coefficient.
@@ -24,8 +24,8 @@
 #' # Run the Hannum clock.
 #' generic_clock(met, coef = as.data.frame(hannum_coef),intercept_name = NULL, clock_name = "Hannum")
 #'
-#' # Run the Horvath clock.
-#' generic_clock(met, coef = as.data.frame(horvath_coef), clock_name = "Horvath")
+#' # Run the Phenoage clock.
+#' generic_clock(met, coef = phenoage_coef, clock_name = "Phenoage")
 #'
 #' @export
 #' @import checkmate
@@ -36,7 +36,8 @@ generic_clock <- function(x, coef,
                           marker_col = "marker", coef_col = "coefficient",
                           intercept_name = "Intercept",
                           id_col = "ID", age_col = "mage",
-                         allow_missing = FALSE, dim_warning = TRUE,
+                         allow_missing = getOption('methylAge.allow_missing'),
+                         dim_warning = getOption('methylAge.dim_warning'),
                          clock_name = "generic"
                          ) {
   # Calculate generic linear model DNA methylation age
