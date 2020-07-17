@@ -22,6 +22,15 @@ if(md5sum(local_phenoage) != "8a812be441c2d1c553bb6cd97597562d") {
 
 phenoage_coef_raw <- readr::read_csv(local_phenoage)
 # Make a syntactically valid name
-phenoage_coef <- phenoage_coef_raw %>% rename_all(~ str_replace_all(.x, " ", "_"))
+phenoage_coef <- phenoage_coef_raw %>%
+  rename_all(~ str_replace_all(.x, " ", "_")) %>%
+  rename(
+    marker = CpG,
+    coefficient = Weight,
+    chrom = Chromosome,
+    pos = Map_Info,
+    gene = Gene_Symbol,
+  ) %>%
+  select(-Univariate_Age_Correlation, -Horvath_Overlap, -Hannum_Overlap)
 
 use_data(phenoage_coef)
