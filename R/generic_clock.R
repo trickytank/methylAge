@@ -4,6 +4,29 @@
 #' does not transform the data. Transforms may be performed outside of this function.
 #' Several clocks in this package use this function for the clock calculation.
 #'
+#' @param x Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.
+#' @param coef data.frame of coefficients, with a column for marker and column for model coefficient.
+#' @param marker_col Name of the marker/probe column in `coef`.
+#' @param coef_col Name of the coefficient column in `coef`
+#' @param intercept_name If character, the name of the intercept marker/probe in `coef`.
+#'                       If numeric, then this is the intercept value.
+#'                       If NULL, then the intercept is set to 0.
+#' @param id_col Name of the sample ID in the output tibble.
+#' @param age_col Name of the estimated age column in the output tibble.
+#' @param allow_missing If FALSE, then all markers in `coef` must be present in `x.`
+#' @param dim_warning If TRUE, then a warning is raised when there are more columns than rows in `x`.
+#' @param clock_name Name of clock for errors and warnings.
+#'
+#' @return A tibble with and id column and estimated methylation age.
+#'
+#' @examples
+#'
+#' # Run the Hannum clock.
+#' generic_clock(met, coef = as.data.frame(hannum_coef),intercept_name = NULL, clock_name = "Hannum")
+#'
+#' # Run the Horvath clock.
+#' generic_clock(met, coef = as.data.frame(horvath_coef), clock_name = "Horvath")
+#'
 #' @export
 #' @import checkmate
 #' @import dplyr
@@ -24,12 +47,18 @@ generic_clock <- function(x, coef,
 
   # Extract intercept if present
   if(!is.null(intercept_name)) {
-    intercept <- coefs_clock[intercept_name]
-    coefs_clock <- coefs_clock[names(coefs_clock) != intercept_name]
-    if(is.na(intercept)) {
-      stop("Value for intercept with name '", intercept_name, "' not found in coef.")
+    if(is.numeric(intercept_name)) {
+      intercept <- intercept_name
+    } else if(is.character(intercept_name)) {
+      intercept <- coefs_clock[intercept_name]
+      coefs_clock <- coefs_clock[names(coefs_clock) != intercept_name]
+      if(is.na(intercept)) {
+        stop("Value for intercept with name '", intercept_name, "' not found in coef.")
+      }
+      assert_number(intercept, finite = TRUE)
+    } else {
+      stop("intercept name is not character or numeric.")
     }
-    assert_number(intercept, finite = TRUE)
   } else {
     intercept <-  0
   }
