@@ -1,4 +1,32 @@
 #' Horvath DNA methylation age calculation
+#'
+#' This should be used on normalized data.
+#' This does not perform the extra steps provided by the original Horvath code,
+#' but this has the ability to ignore missing probes.
+#'
+#' @inheritParams generic_clock
+#'
+#' @export
+#' @import checkmate
+#' @import dplyr
+#' @import tibble
+horvath_clock <- function(x, id_col = "ID", age_col = "horvath_mAge",
+                          allow_missing = getOption('methylAge.allow_missing'),
+                          dim_warning = getOption('methylAge.dim_warning')) {
+  mage <- generic_clock(
+    x, coef = horvath_coef,
+    marker_col = "CpGmarker", coef_col = "CoefficientTraining",
+    intercept_name = "(Intercept)",
+    id_col = id_col, age_col = age_col,
+    allow_missing = allow_missing, dim_warning = dim_warning,
+    clock_name = "Horvath"
+  )
+  mage[[2]] <- anti.trafo(mage[[2]])
+  mage
+}
+
+
+#' Horvath DNA methylation age calculation using original Horvath code
 #' @export
 #' @import checkmate
 #' @import dplyr
@@ -7,7 +35,7 @@
 #' @import sqldf
 #' @import impute
 #' @import RPMM
-horvath_clock <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALSE, dim_warning = TRUE) {
+horvath_clock_original <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALSE, dim_warning = TRUE) {
   # Calculate Horvath Methylation Age
   check_methylation_data(x, dim_warning = dim_warning)
 
