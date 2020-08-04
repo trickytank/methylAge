@@ -1,6 +1,6 @@
 Package: methylAge
 Title: DNA Methylation Age predictors
-Version: 0.0.1.000
+Version: 0.1.0.000
 Authors@R: 
     person(given = "Rick",
            family = "Tankard",
