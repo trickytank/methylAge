@@ -9,7 +9,7 @@
 phenoage <- function(x, id_col = "ID", age_col = "phenoage",
                      allow_missing = getOption('methylAge.allow_missing'),
                      dim_warning = getOption('methylAge.dim_warning')) {
-  # Calculate Hannum Methylation Age
+  # Calculate Phenoage Methylation Age
   generic_clock(
                 x, coef = phenoage_coef,
                 id_col = id_col, age_col = age_col,
