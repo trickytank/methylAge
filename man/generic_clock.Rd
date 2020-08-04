@@ -12,13 +12,48 @@ generic_clock(
   intercept_name = "Intercept",
   id_col = "ID",
   age_col = "mage",
-  allow_missing = FALSE,
-  dim_warning = TRUE,
+  allow_missing = getOption("methylAge.allow_missing"),
+  dim_warning = getOption("methylAge.dim_warning"),
   clock_name = "generic"
 )
+}
+\arguments{
+\item{x}{Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.}
+
+\item{coef}{data.frame of coefficients, with a column for marker and column for model coefficient.}
+
+\item{marker_col}{Name of the marker/probe column in `coef`.}
+
+\item{coef_col}{Name of the coefficient column in `coef`}
+
+\item{intercept_name}{If character, the name of the intercept marker/probe in `coef`.
+If numeric, then this is the intercept value.
+If NULL, then the intercept is set to 0.}
+
+\item{id_col}{Name of the sample ID in the output tibble.}
+
+\item{age_col}{Name of the estimated age column in the output tibble.}
+
+\item{allow_missing}{If FALSE, then all markers in `coef` must be present in `x.`}
+
+\item{dim_warning}{If TRUE, then a warning is raised when there are more columns than rows in `x`.}
+
+\item{clock_name}{Name of clock for errors and warnings.}
+}
+\value{
+A tibble with and id column and estimated methylation age.
 }
 \description{
 This function gives a methylation age based on the coefficients of a trained clock that
 does not transform the data. Transforms may be performed outside of this function.
-Several clocks in this package use this function for the clock calculation.
+Several clocks in this package use this function for methylation age calculation.
+}
+\examples{
+
+# Run the Hannum clock.
+generic_clock(met, coef = as.data.frame(hannum_coef),intercept_name = NULL, clock_name = "Hannum")
+
+# Run the Phenoage clock.
+generic_clock(met, coef = phenoage_coef, clock_name = "Phenoage")
+
 }

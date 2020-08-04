@@ -8,9 +8,20 @@ hannum_clock(
   x,
   id_col = "ID",
   age_col = "hannum_mage",
-  allow_missing = FALSE,
-  dim_warning = TRUE
+  allow_missing = getOption("methylAge.allow_missing"),
+  dim_warning = getOption("methylAge.dim_warning")
 )
+}
+\arguments{
+\item{x}{Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.}
+
+\item{id_col}{Name of the sample ID in the output tibble.}
+
+\item{age_col}{Name of the estimated age column in the output tibble.}
+
+\item{allow_missing}{If FALSE, then all markers in `coef` must be present in `x.`}
+
+\item{dim_warning}{If TRUE, then a warning is raised when there are more columns than rows in `x`.}
 }
 \description{
 Hannum DNA methylation age calculation
