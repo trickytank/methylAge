@@ -8,8 +8,8 @@ lu_telomere(
   x,
   id_col = "ID",
   age_col = "DNAmTL",
-  allow_missing = FALSE,
-  dim_warning = TRUE
+  allow_missing = getOption("methylAge.allow_missing"),
+  dim_warning = getOption("methylAge.dim_warning")
 )
 }
 \arguments{
