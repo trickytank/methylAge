@@ -15,6 +15,6 @@ hannum_expected <- structure(list(
   row.names = c(NA, -10L),
   class = "data.frame")
 
-test_that("Expected result of hannum clock", {
+test_that("Expected result of Hannum clock", {
   expect_equal(as.data.frame(hannum_age), hannum_expected)
 })

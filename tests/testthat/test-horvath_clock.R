@@ -17,6 +17,6 @@ horvath_expected <- structure(list(
   row.names = c(NA, -10L),
   class = "data.frame")
 
-test_that("Expected result of horvath clock", {
+test_that("Expected result of Horvath clock", {
   expect_equal(as.data.frame(horvath_age), horvath_expected)
 })

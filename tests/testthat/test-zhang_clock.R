@@ -20,6 +20,6 @@ zhang_expected <- structure(list(
   row.names = c(NA, -10L),
   class = "data.frame")
 
-test_that("Expected result of zhang clock", {
+test_that("Expected result of Zhang clock", {
   expect_equal(as.data.frame(zhang_age), zhang_expected)
 })
