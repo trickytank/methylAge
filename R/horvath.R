@@ -10,7 +10,7 @@
 #' @import checkmate
 #' @import dplyr
 #' @import tibble
-horvath_clock <- function(x, id_col = "ID", age_col = "horvath_mAge",
+horvath_clock <- function(x, id_col = "ID", age_col = "horvath_mage",
                           allow_missing = getOption('methylAge.allow_missing'),
                           dim_warning = getOption('methylAge.dim_warning')) {
   mage <- generic_clock(
@@ -35,7 +35,7 @@ horvath_clock <- function(x, id_col = "ID", age_col = "horvath_mAge",
 #' @import sqldf
 #' @import impute
 #' @import RPMM
-horvath_clock_original <- function(x, id_col = "ID", age_col = "horvath_mAge", normalize = FALSE, dim_warning = TRUE) {
+horvath_clock_original <- function(x, id_col = "ID", age_col = "horvath_R_mage", normalize = FALSE, dim_warning = TRUE) {
   # Calculate Horvath Methylation Age
   check_methylation_data(x, dim_warning = dim_warning)
 
