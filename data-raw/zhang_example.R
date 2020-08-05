@@ -1,12 +1,11 @@
 # --- Download Zhang example data
 # file is downloaded automatically.
 #
-
-#TODO work in progress
-
 # Zhang Q, Vallerga C, Walker R, Lin T, Henders A, Montgomery G, He J, Fan D, Fowdar J, Kennedy M, et al:
 # Improved precision of epigenetic clock estimates across tissues and its implication for biological ageing.
 # Genome Medicine, 2019.
+#
+# https://github.com/qzhang314/DNAm-based-age-predictor
 
 library(devtools)
 library(tidyverse)
