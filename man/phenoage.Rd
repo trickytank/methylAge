@@ -24,5 +24,9 @@ phenoage(
 \item{dim_warning}{If TRUE, then a warning is raised when there are more columns than rows in `x`.}
 }
 \description{
-Phenoage DNA methylation age calculation
+Calculate the \insertCite{phenoage;textual}{methylAge} DNA methylation Phenoage.
+Please cite the referenced article if using this function.
+}
+\references{
+\insertAllCited{}
 }
