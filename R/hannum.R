@@ -1,6 +1,12 @@
 #' Hannum DNA methylation age calculation
 #'
+#' Calculate the \insertCite{HANNUM2013359;textual}{methylAge} DNA methylation age.
+#' Please cite the referenced article if using this function.
+#'
 #' @inheritParams generic_clock
+#'
+#' @references
+#' \insertAllCited{}
 #'
 #' @export
 #' @import checkmate
