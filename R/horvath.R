@@ -1,10 +1,18 @@
 #' Horvath DNA methylation age calculation
 #'
+#' Calculate the \insertCite{horvath2013;textual}{methylAge} DNA methylation age
+#' using only the coefficients, but not the original Horvath code.
+#' Please cite the referenced article if using this function.
+#'
+#' @inheritParams generic_clock
+#'
+#' @details
 #' This should be used on normalized data.
 #' This does not perform the extra steps provided by the original Horvath code,
 #' but this has the ability to ignore missing probes.
 #'
-#' @inheritParams generic_clock
+#' @references
+#' \insertAllCited{}
 #'
 #' @export
 #' @import checkmate
