@@ -6,8 +6,8 @@
 \usage{
 horvath_clock(
   x,
-  id_col = "ID",
-  age_col = "horvath_mAge",
+  id_out = "ID",
+  age_out = "horvath_mage",
   allow_missing = getOption("methylAge.allow_missing"),
   dim_warning = getOption("methylAge.dim_warning")
 )
@@ -15,16 +15,24 @@ horvath_clock(
 \arguments{
 \item{x}{Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.}
 
-\item{id_col}{Name of the sample ID in the output tibble.}
+\item{id_out}{Name of the sample ID in the output tibble.}
 
-\item{age_col}{Name of the estimated age column in the output tibble.}
+\item{age_out}{Name of the estimated age column in the output tibble.}
 
 \item{allow_missing}{If FALSE, then all markers in `coef` must be present in `x.`}
 
 \item{dim_warning}{If TRUE, then a warning is raised when there are more columns than rows in `x`.}
 }
 \description{
+Calculate the \insertCite{horvath2013;textual}{methylAge} DNA methylation age
+using only the coefficients, but not the original Horvath code.
+Please cite the referenced article if using this function.
+}
+\details{
 This should be used on normalized data.
 This does not perform the extra steps provided by the original Horvath code,
 but this has the ability to ignore missing probes.
+}
+\references{
+\insertAllCited{}
 }

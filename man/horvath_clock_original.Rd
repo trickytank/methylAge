@@ -6,8 +6,8 @@
 \usage{
 horvath_clock_original(
   x,
-  id_col = "ID",
-  age_col = "horvath_mAge",
+  id_out = "ID",
+  age_out = "horvath_R_mage",
   normalize = FALSE,
   dim_warning = TRUE
 )

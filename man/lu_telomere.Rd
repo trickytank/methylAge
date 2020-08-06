@@ -6,8 +6,8 @@
 \usage{
 lu_telomere(
   x,
-  id_col = "ID",
-  age_col = "DNAmTL",
+  id_out = "ID",
+  age_out = "DNAmTL",
   allow_missing = getOption("methylAge.allow_missing"),
   dim_warning = getOption("methylAge.dim_warning")
 )
@@ -15,14 +15,18 @@ lu_telomere(
 \arguments{
 \item{x}{Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.}
 
-\item{id_col}{Name of the sample ID in the output tibble.}
+\item{id_out}{Name of the sample ID in the output tibble.}
 
-\item{age_col}{Name of the estimated age column in the output tibble.}
+\item{age_out}{Name of the estimated age column in the output tibble.}
 
 \item{allow_missing}{If FALSE, then all markers in `coef` must be present in `x.`}
 
 \item{dim_warning}{If TRUE, then a warning is raised when there are more columns than rows in `x`.}
 }
 \description{
-Lu DNA methylation telomere length (DNAmTL) calculation
+Calculate the \insertCite{lu_telomere;textual}{methylAge} DNA methylation age.
+Please cite the referenced article if using this function.
+}
+\references{
+\insertAllCited{}
 }

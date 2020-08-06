@@ -7,11 +7,11 @@
 generic_clock(
   x,
   coef,
-  marker_col = "marker",
-  coef_col = "coefficient",
+  col_marker = "marker",
+  col_coef = "coefficient",
   intercept_name = "Intercept",
-  id_col = "ID",
-  age_col = "mage",
+  id_out = "ID",
+  age_out = "mage",
   allow_missing = getOption("methylAge.allow_missing"),
   dim_warning = getOption("methylAge.dim_warning"),
   clock_name = "generic"
@@ -22,17 +22,17 @@ generic_clock(
 
 \item{coef}{data.frame of coefficients, with a column for marker and column for model coefficient.}
 
-\item{marker_col}{Name of the marker/probe column in `coef`.}
+\item{col_marker}{Name of the marker/probe column in `coef`.}
 
-\item{coef_col}{Name of the coefficient column in `coef`}
+\item{col_coef}{Name of the coefficient column in `coef`}
 
 \item{intercept_name}{If character, the name of the intercept marker/probe in `coef`.
 If numeric, then this is the intercept value.
 If NULL, then the intercept is set to 0.}
 
-\item{id_col}{Name of the sample ID in the output tibble.}
+\item{id_out}{Name of the sample ID in the output tibble.}
 
-\item{age_col}{Name of the estimated age column in the output tibble.}
+\item{age_out}{Name of the estimated age column in the output tibble.}
 
 \item{allow_missing}{If FALSE, then all markers in `coef` must be present in `x.`}
 

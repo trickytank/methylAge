@@ -6,8 +6,8 @@
 \usage{
 phenoage(
   x,
-  id_col = "ID",
-  age_col = "phenoage",
+  id_out = "ID",
+  age_out = "phenoage",
   allow_missing = getOption("methylAge.allow_missing"),
   dim_warning = getOption("methylAge.dim_warning")
 )
@@ -15,9 +15,9 @@ phenoage(
 \arguments{
 \item{x}{Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.}
 
-\item{id_col}{Name of the sample ID in the output tibble.}
+\item{id_out}{Name of the sample ID in the output tibble.}
 
-\item{age_col}{Name of the estimated age column in the output tibble.}
+\item{age_out}{Name of the estimated age column in the output tibble.}
 
 \item{allow_missing}{If FALSE, then all markers in `coef` must be present in `x.`}
 

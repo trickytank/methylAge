@@ -6,13 +6,31 @@
 \usage{
 zhang_clock(
   x,
-  id_col = "ID",
-  en_col = "zhang_en_mAge",
-  blup_col = "zhang_blup_mAge",
-  clocks = c("en", "blup"),
+  id_out = "ID",
+  en_out = "zhang_en_mage",
+  blup_out = "zhang_blup_mage",
+  clock = c("en", "blup"),
   dim_warning = TRUE
 )
 }
+\arguments{
+\item{x}{Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.}
+
+\item{id_out}{Name of the sample ID in the output tibble.}
+
+\item{en_out}{Column name for the Elastic Net DNA methylation age estimate.}
+
+\item{blup_out}{Column name for the Best Linear Unbiased Prediction (BLUP) DNA methylation age estimate.}
+
+\item{clock}{The clock/s to calculate from Zhang et al. The Elastic Net will be calculated with "en" and the BLUP will be calculated with "blup". Both may be included as a vector to calculate both.}
+
+\item{dim_warning}{If TRUE, then a warning is raised when there are more columns than rows in `x`.}
+}
 \description{
-Zhang DNA methylation age calculation
+Calculate the \insertCite{zhang2019;textual}{methylAge} DNA methylation ages with the
+Elastic Net (EN) and Best Linear Unbiased Prediction (BLUP) clocks.
+Please cite the referenced article if using this function.
+}
+\references{
+\insertAllCited{}
 }
