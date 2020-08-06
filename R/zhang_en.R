@@ -1,11 +1,24 @@
 #' Zhang DNA methylation age calculation
+#'
+#' Calculate the \insertCite{zhang2019;textual}{methylAge} DNA methylation ages with the
+#' Elastic Net (EN) and Best Linear Unbiased Prediction (BLUP) clocks.
+#' Please cite the referenced article if using this function.
+#'
+#' @inheritParams generic_clock
+#' @param en_out Column name for the Elastic Net DNA methylation age estimate.
+#' @param blup_out Column name for the Best Linear Unbiased Prediction (BLUP) DNA methylation age estimate.
+#' @param clock The clock/s to calculate from Zhang et al. The Elastic Net will be calculated with "en" and the BLUP will be calculated with "blup". Both may be included as a vector to calculate both.
+#'
+#' @references
+#' \insertAllCited{}
+#'
 #' @export
 #' @import checkmate
 #' @import dplyr
 #' @import tibble
 zhang_clock <- function(x, id_out = "ID",
-                         en_col = "zhang_en_mage", blup_col = "zhang_blup_mage",
-                         clocks = c("en", "blup"), dim_warning = TRUE) {
+                         en_out = "zhang_en_mage", blup_out = "zhang_blup_mage",
+                         clock = c("en", "blup"), dim_warning = TRUE) {
   # Calculate Zhang Elastic Net Methylation Age
   check_methylation_data(x, dim_warning = dim_warning)
 
