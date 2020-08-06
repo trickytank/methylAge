@@ -3,7 +3,7 @@
 #' @import checkmate
 #' @import dplyr
 #' @import tibble
-zhang_clock <- function(x, id_col = "ID",
+zhang_clock <- function(x, id_out = "ID",
                          en_col = "zhang_en_mage", blup_col = "zhang_blup_mage",
                          clocks = c("en", "blup"), dim_warning = TRUE) {
   # Calculate Zhang Elastic Net Methylation Age
@@ -65,13 +65,13 @@ zhang_clock <- function(x, id_col = "ID",
   ## x_mat <- as.matrix( x[names(coefs_clock), ] )
   ## m_age <- coefs_clock %*% x_mat
   ## # Cleanup
-  ## tibble(!!id_col := colnames(m_age), !!age_col := m_age[1,])
+  ## tibble(!!id_out := colnames(m_age), !!age_out := m_age[1,])
 
   list(en = enpred, blup = blupred)
   if("en" %in% clocks) {
-    age_pred <- tibble::tibble(!!id_col := colnames(enpred), !!en_col := enpred[1,])
+    age_pred <- tibble::tibble(!!id_out := colnames(enpred), !!en_col := enpred[1,])
   } else {
-    age_pred <- tibble::tibble(!!id_col := colnames(blupred))
+    age_pred <- tibble::tibble(!!id_out := colnames(blupred))
   }
   if("blup" %in% clocks) {
     age_pred <- tibble::add_column(age_pred, !!blup_col := blupred[1,])
