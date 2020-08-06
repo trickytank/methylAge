@@ -10,14 +10,14 @@
 #' @import checkmate
 #' @import dplyr
 #' @import tibble
-horvath_clock <- function(x, id_col = "ID", age_col = "horvath_mage",
+horvath_clock <- function(x, id_out = "ID", age_out = "horvath_mage",
                           allow_missing = getOption('methylAge.allow_missing'),
                           dim_warning = getOption('methylAge.dim_warning')) {
   mage <- generic_clock(
     x, coef = horvath_coef,
-    marker_col = "CpGmarker", coef_col = "CoefficientTraining",
+    col_marker = "CpGmarker", col_coef = "CoefficientTraining",
     intercept_name = "(Intercept)",
-    id_col = id_col, age_col = age_col,
+    id_out = id_out, age_out = age_out,
     allow_missing = allow_missing, dim_warning = dim_warning,
     clock_name = "Horvath"
   )
@@ -35,7 +35,7 @@ horvath_clock <- function(x, id_col = "ID", age_col = "horvath_mage",
 #' @import sqldf
 #' @import impute
 #' @import RPMM
-horvath_clock_original <- function(x, id_col = "ID", age_col = "horvath_R_mage", normalize = FALSE, dim_warning = TRUE) {
+horvath_clock_original <- function(x, id_out = "ID", age_out = "horvath_R_mage", normalize = FALSE, dim_warning = TRUE) {
   # Calculate Horvath Methylation Age
   check_methylation_data(x, dim_warning = dim_warning)
 
@@ -239,7 +239,7 @@ horvath_clock_original <- function(x, id_col = "ID", age_col = "horvath_R_mage",
   }
 
   # Cleanup
-  names(datout)[1:2] <- c(id_col, age_col)
+  names(datout)[1:2] <- c(id_out, age_out)
   datout
 }
 
