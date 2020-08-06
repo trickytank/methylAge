@@ -1,6 +1,12 @@
 #' Lu DNA methylation telomere length (DNAmTL) calculation
 #'
+#' Calculate the \insertCite{lu_telomere;textual}{methylAge} DNA methylation age.
+#' Please cite the referenced article if using this function.
+#'
 #' @inheritParams generic_clock
+#'
+#' @references
+#' \insertAllCited{}
 #'
 #' @export
 #' @import checkmate
