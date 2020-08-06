@@ -6,13 +6,13 @@
 #'
 #' @param x Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.
 #' @param coef data.frame of coefficients, with a column for marker and column for model coefficient.
-#' @param marker_col Name of the marker/probe column in `coef`.
-#' @param coef_col Name of the coefficient column in `coef`
+#' @param col_marker Name of the marker/probe column in `coef`.
+#' @param col_coef Name of the coefficient column in `coef`
 #' @param intercept_name If character, the name of the intercept marker/probe in `coef`.
 #'                       If numeric, then this is the intercept value.
 #'                       If NULL, then the intercept is set to 0.
-#' @param id_col Name of the sample ID in the output tibble.
-#' @param age_col Name of the estimated age column in the output tibble.
+#' @param id_out Name of the sample ID in the output tibble.
+#' @param age_out Name of the estimated age column in the output tibble.
 #' @param allow_missing If FALSE, then all markers in `coef` must be present in `x.`
 #' @param dim_warning If TRUE, then a warning is raised when there are more columns than rows in `x`.
 #' @param clock_name Name of clock for errors and warnings.
@@ -33,9 +33,9 @@
 #' @import tibble
 #' @importFrom stats setNames
 generic_clock <- function(x, coef,
-                          marker_col = "marker", coef_col = "coefficient",
+                          col_marker = "marker", col_coef = "coefficient",
                           intercept_name = "Intercept",
-                          id_col = "ID", age_col = "mage",
+                          id_out = "ID", age_out = "mage",
                          allow_missing = getOption('methylAge.allow_missing'),
                          dim_warning = getOption('methylAge.dim_warning'),
                          clock_name = "generic"
@@ -44,7 +44,7 @@ generic_clock <- function(x, coef,
   check_methylation_data(x, dim_warning = dim_warning)
 
   # Load coefficients
-  coefs_clock <- setNames(coef[[coef_col]], coef[[marker_col]])
+  coefs_clock <- setNames(coef[[col_coef]], coef[[col_marker]])
 
   # Extract intercept if present
   if(!is.null(intercept_name)) {
@@ -84,5 +84,5 @@ generic_clock <- function(x, coef,
   x_mat <- as.matrix( x[probes_present, ] )
   m_age <- coefs_clock %*% x_mat + intercept
   # Cleanup
-  tibble::tibble(!!id_col := colnames(m_age), !!age_col := m_age[1,])
+  tibble::tibble(!!id_out := colnames(m_age), !!age_out := m_age[1,])
 }
