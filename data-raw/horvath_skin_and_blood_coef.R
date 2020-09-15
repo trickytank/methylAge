@@ -22,6 +22,7 @@ if(tools::md5sum(local_hsb) != "a06862d6b6ff91ad969563d3f44716c2") {
 hsb_coef_raw <- readr::read_csv(local_hsb)
 # Make a syntactically valid name
 hsb_coef <- hsb_coef_raw %>%
-  select(marker = ID, coefficient = Coef)
+  select(marker = ID, coefficient = Coef) %>%
+  mutate(marker = if_else(marker == "(Intercept)", "Intercept", marker))
 
 use_data(hsb_coef)
