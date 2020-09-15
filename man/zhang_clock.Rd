@@ -14,7 +14,7 @@ zhang_clock(
 )
 }
 \arguments{
-\item{x}{Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.}
+\item{x}{Matrix or data.frame of methylation proportions, with probes/markers as `rownames` and samples as `colnames`.}
 
 \item{id_out}{Name of the sample ID in the output tibble.}
 

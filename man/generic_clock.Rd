@@ -18,7 +18,7 @@ generic_clock(
 )
 }
 \arguments{
-\item{x}{Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.}
+\item{x}{Matrix or data.frame of methylation proportions, with probes/markers as `rownames` and samples as `colnames`.}
 
 \item{coef}{data.frame of coefficients, with a column for marker and column for model coefficient.}
 
