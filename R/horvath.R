@@ -23,8 +23,6 @@ horvath_clock <- function(x, id_out = "ID", age_out = "horvath_mage",
                           dim_warning = getOption('methylAge.dim_warning')) {
   mage <- generic_clock(
     x, coef = horvath_coef,
-    col_marker = "CpGmarker", col_coef = "CoefficientTraining",
-    intercept_name = "(Intercept)",
     id_out = id_out, age_out = age_out,
     allow_missing = allow_missing, dim_warning = dim_warning,
     clock_name = "Horvath"
@@ -171,23 +169,23 @@ horvath_clock_original <- function(x, id_out = "ID", age_out = "horvath_R_mage",
 
 
     #STEP 3.4: Predict age and create a data frame for the output (referred to as datout)
-    selectCpGsClock=is.element(dimnames(datMethUsedNormalized)[[2]], as.character(datClock$CpGmarker[-1]))
+    selectCpGsClock=is.element(dimnames(datMethUsedNormalized)[[2]], as.character(datClock$marker[-1]))
     if ( sum( selectCpGsClock) < dim(datClock)[[1]]-1 ) {stop("The CpGs listed in column 1 of the input data did not contain the CpGs needed for calculating DNAm age. Make sure to input cg numbers such as cg00075967.")}
     if ( sum( selectCpGsClock) > dim(datClock)[[1]]-1 ) {stop("ERROR: The CpGs listed in column 1 of the input data contain duplicate CpGs. Each row should report only one unique CpG marker (cg number).")}
     if (nSamples>1 ) {
       datMethClock0=data.frame(datMethUsedNormalized[,selectCpGsClock])
-      datMethClock= data.frame(datMethClock0[ as.character(datClock$CpGmarker[-1])])
+      datMethClock= data.frame(datMethClock0[ as.character(datClock$marker[-1])])
       dim(datMethClock)
-      predictedAge=as.numeric(anti.trafo(datClock$CoefficientTraining[1]+as.matrix(datMethClock)%*% as.numeric(datClock$CoefficientTraining[-1])))
+      predictedAge=as.numeric(anti.trafo(datClock$coefficient[1]+as.matrix(datMethClock)%*% as.numeric(datClock$coefficient[-1])))
     } # end of if
 
 
     if (nSamples==1 ) {
       datMethUsedNormalized2=data.frame(rbind(datMethUsedNormalized,datMethUsedNormalized))
       datMethClock0=data.frame(datMethUsedNormalized2[,selectCpGsClock])
-      datMethClock= data.frame(datMethClock0[ as.character(datClock$CpGmarker[-1])])
+      datMethClock= data.frame(datMethClock0[ as.character(datClock$marker[-1])])
       dim(datMethClock)
-      predictedAge=as.numeric(anti.trafo(datClock$CoefficientTraining[1]+as.matrix(datMethClock)%*% as.numeric(datClock$CoefficientTraining[-1])))
+      predictedAge=as.numeric(anti.trafo(datClock$coefficient[1]+as.matrix(datMethClock)%*% as.numeric(datClock$coefficient[-1])))
       predictedAge=predictedAge[1]
     } # end of if
 
