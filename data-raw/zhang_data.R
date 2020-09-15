@@ -34,4 +34,7 @@ if(md5sum(local_zhang_blup) != "11a8e62991b1b77566bb10e25da0a48c") {
 zhang_en_coef <- read.table(local_zhang_en, stringsAsFactor = FALSE, header = TRUE)
 zhang_blup_coef <- read.table(local_zhang_blup, stringsAsFactor = FALSE, header = TRUE)
 
+zhang_en_coef <- zhang_en_coef %>% rename(marker = probe, coefficient = coef)
+zhang_blup_coef <- zhang_blup_coef %>% rename(marker = probe, coefficient = coef)
+
 use_data(zhang_en_coef, zhang_blup_coef)
