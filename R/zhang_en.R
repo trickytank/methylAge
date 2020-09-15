@@ -47,8 +47,8 @@ zhang_clock <- function(x, id_out = "ID",
   encoef<-encoef[-1,]
   blupcoef<-blupcoef[-1,]
 
-  rownames(encoef)<-encoef$probe
-  rownames(blupcoef)<-blupcoef$probe
+  rownames(encoef)<-encoef$marker
+  rownames(blupcoef)<-blupcoef$marker
 
   ############# 4. get common probes between predictors and data ##############
   message("3. Checking misssing probes")
@@ -68,8 +68,8 @@ zhang_clock <- function(x, id_out = "ID",
 
   encoef<-encoef[encomm,]
   blupcoef<-blupcoef[blupcomm,]
-  encoef$coef%*%dataNona.norm[encomm,]+en_int->enpred
-  blupcoef$coef%*%dataNona.norm[blupcomm,]+blup_int->blupred
+  encoef$coefficient%*%dataNona.norm[encomm,]+en_int->enpred
+  blupcoef$coefficient%*%dataNona.norm[blupcomm,]+blup_int->blupred
 
 
   ## # Load coefficients
