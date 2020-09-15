@@ -29,8 +29,10 @@ if(md5sum(local_horvath) != "27df5691e91ee6dc362458efaae1a739") {
   stop("Horvath coefficients file does not appear to be correct according to the md5sum.")
 }
 
-horvath_coef_raw <- read.csv(local_horvath)
-horvath_coef <- horvath_coef_raw[, 1:2]
+horvath_coef_raw <- read_csv(local_horvath)
+horvath_coef <- horvath_coef_raw %>%
+  select(marker = CpGmarker, coefficient = CoefficientTraining) %>%
+  mutate(marker = if_else(marker == "(Intercept)", "Intercept", marker))
 
 use_data(horvath_coef)
 
