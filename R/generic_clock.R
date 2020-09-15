@@ -4,7 +4,7 @@
 #' does not transform the data. Transforms may be performed outside of this function.
 #' Several clocks in this package use this function for methylation age calculation.
 #'
-#' @param x Matrix of methylation proportions, with probes/markers as named rows and samples as named columns.
+#' @param x Matrix or data.frame of methylation proportions, with probes/markers as `rownames` and samples as `colnames`.
 #' @param coef data.frame of coefficients, with a column for marker and column for model coefficient.
 #' @param col_marker Name of the marker/probe column in `coef`.
 #' @param col_coef Name of the coefficient column in `coef`
