@@ -24,5 +24,5 @@ all_clocks <- function(x, coef,
                         allow_missing = getOption('methylAge.allow_missing'),
                         dim_warning = getOption('methylAge.dim_warning')
 ) {
-
+  stop("Function not yet written.")
 }
