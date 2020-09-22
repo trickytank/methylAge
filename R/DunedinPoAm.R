@@ -10,6 +10,7 @@
 #'
 #' @inheritParams generic_clock
 #' @param proportionOfProbesRequired The threshold for missing data, as specified in DunedinPoAm38::PoAmProjector.
+#' @param est_out Name of the estimated pace of ageing length column in the output tibble.
 #'
 #' @references
 #' \insertAllCited{}
@@ -46,6 +47,10 @@ dunedinpoam_helper <- function(x,
 }
 
 #' Clean DunedinPoAm output to fit with the output of other estimators in the MethylAge package
+#' @export
+#' @import checkmate
+#' @import tibble
+#' @importFrom Rdpack reprompt
 dunedinpoam_clean <- function(x, id_out = "ID", est_out = "DunedinPoAm") {
   y <- tibble(
     id_pre = names(x[[1]]),
