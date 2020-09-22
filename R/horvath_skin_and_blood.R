@@ -1,4 +1,4 @@
-#' Phenoage DNA methylation age calculation
+#' Horvath's Skin and blood clock calculation
 #'
 #' Calculate the \insertCite{horvath_skin_blood;textual}{methylAge} Skin and Blood methylation age.
 #' Please cite the referenced article if using this function.
