@@ -22,7 +22,7 @@ if(md5sum(local_lu) != "ccf1be3cd87ce10f1c5b58213b0fafdd") {
 }
 
 lu_coef_raw <- readxl::read_excel(local_lu, skip = 5)
-# Make a syntactically valid name
+# Make consistent across package
 lu_coef <- lu_coef_raw %>%
   select(marker = Variable, coefficient = Coefficient)
 
