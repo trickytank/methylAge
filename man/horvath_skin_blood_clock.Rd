@@ -2,7 +2,7 @@
 % Please edit documentation in R/horvath_skin_and_blood.R
 \name{horvath_skin_blood_clock}
 \alias{horvath_skin_blood_clock}
-\title{Phenoage DNA methylation age calculation}
+\title{Horvath's Skin and blood clock calculation}
 \usage{
 horvath_skin_blood_clock(
   x,
