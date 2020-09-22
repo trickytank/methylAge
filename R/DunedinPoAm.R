@@ -34,7 +34,7 @@ dunedinpoam_helper <- function(x,
       stop("No probes from the DunedinPoAm estimator is in the data.")
     }
     if(!allow_missing && !all(probes_check)) {
-      stop(sum(!probes_check), " ", clock_name, " probes are missing from the data.")
+      stop(sum(!probes_check), " DunedinPoAm probes are missing from the data.")
     }
 
     poAm <- DunedinPoAm38::PoAmProjector(x, proportionOfProbesRequired)
