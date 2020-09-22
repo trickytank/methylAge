@@ -22,7 +22,7 @@
 #' @examples
 #'
 #' # Run the Hannum clock.
-#' generic_clock(met, coef = as.data.frame(hannum_coef),intercept_name = NULL, clock_name = "Hannum")
+#' generic_clock(met, coef = as.data.frame(hannum_coef), intercept_name = NULL, clock_name = "Hannum")
 #'
 #' # Run the Phenoage clock.
 #' generic_clock(met, coef = phenoage_coef, clock_name = "Phenoage")
@@ -67,7 +67,7 @@ generic_clock <- function(x, coef,
   # Check for missing coefficients
   probes_check <- names(coefs_clock) %in% row.names(x)
   if(!any(probes_check)) {
-    stop("No probes from the Hannum clock are in the data.")
+    stop("No probes from the ", clock_name, " estimator is in the data.")
   }
   if(allow_missing) {
     probes_present <- names(coefs_clock)[probes_check]
