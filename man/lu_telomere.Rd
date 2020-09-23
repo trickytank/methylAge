@@ -7,7 +7,7 @@
 lu_telomere(
   x,
   id_out = "ID",
-  age_out = "DNAmTL",
+  est_out = "DNAmTL",
   allow_missing = getOption("methylAge.allow_missing"),
   dim_warning = getOption("methylAge.dim_warning")
 )
@@ -17,7 +17,7 @@ lu_telomere(
 
 \item{id_out}{Name of the sample ID in the output tibble.}
 
-\item{age_out}{Name of the estimated age column in the output tibble.}
+\item{est_out}{Name of the estimated telomere length column in the output tibble.}
 
 \item{allow_missing}{If FALSE, then all markers in `coef` must be present in `x.`}
 
