@@ -1,12 +1,10 @@
 #' Convenience function for DunedinPoAm pace of ageing
 #'
-#' Calculate the (TODO: cite https://doi.org/10.7554/eLife.54870) cortex tissueDNA methylation age calculation.
+#' Calculate the \insertCite{belsky2020quantification;textual}{methylAge} cortex tissueDNA methylation age calculation.
 #' Please cite the referenced article if using this function.
 #'
-#' This relies on installing the package with `
-#' ```
+#' This relies on installing the package with
 #' devtools::install_github("danbelsky/DunedinPoAm38")
-#' ```
 #'
 #' @inheritParams generic_clock
 #' @param proportionOfProbesRequired The threshold for missing data, as specified in DunedinPoAm38::PoAmProjector.
@@ -47,15 +45,26 @@ dunedinpoam_helper <- function(x,
 }
 
 #' Clean DunedinPoAm output to fit with the output of other estimators in the MethylAge package
+#'
+#' Reformat output from \insertCite{belsky2020quantification;textual}{methylAge} cortex tissueDNA methylation age calculation.
+#'
+#' DunedinPoAm can be calculated from the DunedinPoAm38 package that can be installed from:
+#' https://github.com/danbelsky/DunedinPoAm38
+#'
+#' @param x Output from the DunedinPoAm38::PoAmProjector function.
+#' @param id_out Column name for the sample ID column.
+#' @param est_out Column name for the pace of ageing estimator.
+#'
+#' @references
+#' \insertAllCited{}
+#'
 #' @export
 #' @import checkmate
 #' @import tibble
 #' @importFrom Rdpack reprompt
 dunedinpoam_clean <- function(x, id_out = "ID", est_out = "DunedinPoAm") {
-  y <- tibble(
-    id_pre = names(x[[1]]),
-    est_out_pre = x[[1]]
+  tibble(
+    !! id_out := names(x[[1]]),
+    !! est_out := x[[1]]
   )
-  names(y) <- c(id_out, est_out)
-  y
 }
