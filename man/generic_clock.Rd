@@ -51,7 +51,7 @@ Several clocks in this package use this function for methylation age calculation
 \examples{
 
 # Run the Hannum clock.
-generic_clock(met, coef = as.data.frame(hannum_coef),intercept_name = NULL, clock_name = "Hannum")
+generic_clock(met, coef = as.data.frame(hannum_coef), intercept_name = NULL, clock_name = "Hannum")
 
 # Run the Phenoage clock.
 generic_clock(met, coef = phenoage_coef, clock_name = "Phenoage")
