@@ -2,6 +2,8 @@
 
 export(all_clocks)
 export(check_methylation_data)
+export(dunedinpoam_clean)
+export(dunedinpoam_helper)
 export(generic_clock)
 export(hannum_clock)
 export(horvath_clock)
