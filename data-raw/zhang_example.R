@@ -15,8 +15,6 @@ library(fs)
 local_zhang_methylation <- 'data-raw/supplementary/zhang/data.rds'
 local_zhang_age <- 'data-raw/supplementary/zhang/data.age'
 
-  data.age
-#
 dir_create(path_dir(local_zhang_methylation))
 
 if(!file.exists(local_zhang_methylation)) {
